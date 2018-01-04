@@ -8,10 +8,11 @@ module.exports = express.Router()
       .catch(err => res.json(err))
   })
   .post('/', (req, res) => {
-    const { lastname, firstname } = req.body;
-    model.createUser({ firstname, lastname })
+    const { lastname, firstname, email, pwd, role } = req.body;
+    model
+      .createUser({ lastname, firstname, email, pwd, role })
       .then(result => res.send(result))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   })
   /**
    * Move a card

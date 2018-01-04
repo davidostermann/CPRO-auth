@@ -9,13 +9,6 @@ app.use(logger('dev'))
 app.use(cors())
 app.use(express.json())
 
-const { encodePassword, comparePassword } = require('./auth');
-const baconHash = encodePassword('bacon')
-.then( hash => { console.log('hash : ', hash); return hash; })
-.then( hash => comparePassword('bacon', hash))
-.then( isMatch => console.log(`isMatch : ${isMatch}`))
-.catch( err => console.log('err : ', err))
-
 // middleware to escape simple quotes
 // I use simple quotes in SQL queries (cf. model)
 app.use((req, res, next) => {

@@ -1,4 +1,5 @@
 const db = require('./db')
+const { encodePassword } = require('../auth') 
 const defaultListId = 1;
 
 module.exports = {
@@ -6,10 +7,11 @@ module.exports = {
   getUsers() {
     return db.unwrapQuery('SELECT * FROM users ORDER BY id')
   },
-  createUser({ firstname, lastname }) {
-    return db.unwrapQuery(`
-    INSERT INTO users(firstname, lastname)
-    VALUES ('${firstname}', '${lastname}')`)
+  createUser({ lastname, firstname, email, pwd, role }) {
+    return encodePassword(pwd).then(hash => db.unwrapQuery(`
+    INSERT INTO users(firstname, lastname, email, pwd, roletype)
+    VALUES ('${firstname}', '${lastname}', 
+    '${email}', '${hash}', '${role}')`))
   },
   updateUser({ id, firstname, lastname }) {
     return db.unwrapQuery(`
