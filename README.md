@@ -13,29 +13,34 @@ cf. [auth](./app/auth/pwd.js)
 
 ### Générer un pwd génréric
 
-cf. [auth helper encodePassword](./app/auth/helper.js) 
+cf. [auth helper createGenericPassoword](./app/auth/helper.js) 
 
 ## 3. BDD
 
 Ajouter les champs email, pwd, role à la base
 cf. [setup.sql l.38 à 60](./setup.sql)
 
-Le pwd pourra être généré avec le [helper](./app/auth/helper.js)
+Un pwd générique pourra être généré avec le [helper](./app/auth/helper.js)
+
+## 5. ajouter 3 methodes au model user :
+
+* `notExists(email)` pour la creation de l'utilisateur
+* `getUserByEmail` pour le login
+* `getUserById` pour la vérification du token
 
 ## 4. modifier la creation de user
 
-```javascript
-const { encodePassword } = require('../auth/pwd') 
-```
+* Ajouter les nouveaux champs (email , pwd, roletype)
+* Verifier la présence de l'email
+* Verifier la présence du password
+* Verifier que l'utilisateur n'exite pas dejà : `notExists(email)`
+* Encoder le password avant de l'insérer dans la base
 
-```javascript
-createUser({ lastname, firstname, email, pwd }) {
-  return encodePassword(pwd)
-  .then(hash =>
-    db.unwrapQuery(`
-      INSERT INTO users(firstname, lastname, email, pwd, roletype)
-      VALUES ('${firstname}', '${lastname}', 
-      '${email}', '${hash}', 'user')`)
-  );
-}
-```
+## 6. Parametrer Passport
+
+Créer un fichier auth/passport.js pour :
+* initialiser une strategie pour le login : local
+* initialiser une strategie pour les routes d'api et les routes front : jwt
+* exposer les middlewares correspondants.
+
+

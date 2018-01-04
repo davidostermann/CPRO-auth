@@ -9,40 +9,25 @@ const localOptions = {
   usernameField: 'email'
 };
 
-const localLogin = new LocalStrategy(localOptions, (
-  email,
-  password,
-  done
-) => User.getByEmail(email)
-      .then(
-        user => comparePassword(password, user.pwd)
-          .then(
-            isMatch => isMatch ? done(null, user) : Promise.reject('Bad password'))
-      )
-      .catch(err => done(null, false, err))
-)
-
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
 };
 
-const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
+const checkCredentials = (email, password, done) =>
+  User.getByEmail(email)
+    .then(user => 
+      comparePassword(password, user.pwd)
+        .then( isMatch => done(null, user)))
+    .catch(err => done(null, false, err));
+
+const checkToken = (payload, done) =>
   User.getById(payload._id)
-  .then( user => {
-    if (user) {
-      done(null, user)
-    } else {
-      done(null, false)
-    }
-  })
-  .catch( err => done(err))
-})
+    .then(user => done(null, user || false))
+    .catch(err => done(err))
 
-passport.use(jwtLogin)
-passport.use(localLogin)
-
-console.log('init passport');
+passport.use(new JwtStrategy(jwtOptions, checkToken))
+passport.use(new LocalStrategy(localOptions, checkCredentials))
 
 exports.requireAuth = passport.authenticate("jwt", { session: false }),
 exports.requireLogin = passport.authenticate("local", { session: false });

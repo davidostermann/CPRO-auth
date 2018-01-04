@@ -17,15 +17,19 @@ module.exports = {
 
   },
   getByEmail(email) {
-    console.log('email : ', email);
-    
     return db
       .unwrapQuery(`SELECT * FROM users WHERE email='${email}'`)
       .then(users => {
         return users.length
           ? users[0]
-          : Promise.reject('No user for its email');
+          : Promise.reject({ error: 'No user for its email'});
       })
+  },
+  notExists(email) {
+    return db
+      .unwrapQuery(`SELECT * FROM users WHERE email='${email}'`)
+      .then( users => !users.length 
+        || Promise.reject({ error: 'User already exist'}))
   },
   createUser({ lastname, firstname, email, pwd }) {
     return encodePassword(pwd)

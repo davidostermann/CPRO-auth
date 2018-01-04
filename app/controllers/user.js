@@ -27,11 +27,20 @@ module.exports = express.Router()
       .catch(err => res.json(err));
   })
   .post('/', (req, res) => {
-    const { lastname, firstname, email, pwd, role } = req.body;
-    model
-      .createUser({ lastname, firstname, email, pwd, role })
+    const { lastname, firstname, email, pwd } = req.body;
+    if (!email) {
+      return res.status(422).send({ error: 'You must enter an email address' })
+    }
+
+    if (!pwd) {
+      return res.status(422).send({ error: 'You must enter a password' })
+    }
+
+    return model
+      .notExists(email)
+      .then( exist => createUser({ lastname, firstname, email, pwd }))
       .then(result => res.send(result))
-      .catch(err => console.log(err));
+      .catch(error => res.status(422).send({ error }))
   })
   .post('/login', requireLogin, (req, res) => {
       
