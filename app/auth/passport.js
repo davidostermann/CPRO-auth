@@ -3,6 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/user')
+const { comparePassword } = require('./pwd')
 
 const localOptions = {
   usernameField: 'email'
@@ -12,28 +13,14 @@ const localLogin = new LocalStrategy(localOptions, (
   email,
   password,
   done
-) => {
-  User.getUserByEmail(email)
-  .then( user => {
-    if (!user) {
-      return done(null, false, { error: 'Login failed. Please try again.' })
-    }
-
-    comparePassword(password, user.pwd)
-    .then( isMatch => {
-      if (!isMatch) {
-        return done(null, false, {
-          error: 'Login failed. Please try again.'
-        })
-      }
-
-      return done(null, user)
-    })
-    .catch( err => done(err))
-
-  })
-  .catch( err => done(err))
-})
+) => User.getByEmail(email)
+      .then(
+        user => comparePassword(password, user.pwd)
+          .then(
+            isMatch => isMatch ? done(null, user) : Promise.reject('Bad password'))
+      )
+      .catch(err => done(null, false, err))
+)
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

@@ -17,8 +17,10 @@ module.exports = {
 
   },
   getByEmail(email) {
+    console.log('email : ', email);
+    
     return db
-      .unwrapQuery(`SELECT * FROM users WHERE email=${email}`)
+      .unwrapQuery(`SELECT * FROM users WHERE email='${email}'`)
       .then(users => {
         return users.length
           ? users[0]

@@ -1,16 +1,17 @@
 const express = require('express')
+const jwt = require('jsonwebtoken');
 const model = require('../models/user')
 
 const { requireLogin, requireAuth } = require('../auth/passport')
 
 const generateToken = user => {
-  return jwt.sign(user, authConfig.secret, { expiresIn: 10080 });
+  return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: 10080 });
 }
 
 const setUserInfo = request => ({
-  _id: request._id,
+  _id: request.id,
   email: request.email,
-  role: request.role
+  role: request.roletype
 });
 
 module.exports = express.Router()
@@ -32,8 +33,8 @@ module.exports = express.Router()
       .then(result => res.send(result))
       .catch(err => console.log(err));
   })
-  .get('/login', requireLogin, (req, res) => {
-
+  .post('/login', requireLogin, (req, res) => {
+      
       const userInfo = setUserInfo(req.user);
 
       res
