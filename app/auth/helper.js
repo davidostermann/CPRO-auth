@@ -1,12 +1,12 @@
-const { encodePassword, comparePassword } = require("./");
+const { encodePassword, comparePassword } = require('./');
 
-encodePassword("bacon")
+exports.testPassoword = encodePassword('bacon')
   .then(hash => {
-    console.log("hash : ", hash);
+    console.log('hash : ', hash);
     return hash;
   })
-  .then(hash => comparePassword("bacon", hash))
+  .then(hash => comparePassword('bacon', hash))
   .then(isMatch => console.log(`isMatch : ${isMatch}`))
-  .catch(err => console.log("err : ", err));
+  .catch(err => console.log('err : ', err));
 
-exports.createGenericPassoword = () => encodePassword("bacon")
+exports.createGenericPassoword = (pwd = 'bacon') => encodePassword(pwd);
