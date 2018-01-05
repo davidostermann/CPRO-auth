@@ -3,41 +3,35 @@ const User = require('../models/user')
 const authorizationErr = 'You are not authorized to view this content'
 
 /**
- * Expose le middleware qui vérifie que 
+ * Expose le middleware qui vérifie que
  * le rôle du user authentifié (req.user.roletype)
  * est bien dans les rôles authorisés (roles)
  * @param {array} roles
  */
 exports.roleAuthorization = (...roles) => (req, res, next) => {
-
   // Grâce au middleware authJwt, on récupere le user
-  if (roles.indexOf(req.user.roletype) > -1) {
-    return next()
-  } else {
-    res.status(401).json({ error: authorizationErr })
-    return next('Unauthorized')
-  }
+  return roles.indexOf(req.user.roletype) > -1
+    ? next()
+    : res.status(401).json({ error: authorizationErr })
 }
 
 /**
- * Expose le middleware qui vérifie que 
+ * Expose le middleware qui vérifie que
  * le user authentifié (req.user.id)
  * est bien le propriétaire du compte (req.params.userId)
  */
 exports.ownAccount = (req, res, next) => {
   // Grâce au middleware authJwt, on récupere le user
+  const userId = req.params.userId || req.body.userId
   const isAdmin = req.user.roletype === 'admin'
-  const isOwner = req.user.id === +req.params.userId
-  if (isAdmin || isOwner) {
-    return next()
-  } else {
-    res.status(401).json({ error: authorizationErr })
-    return next('Unauthorized')
-  }
+  const isOwner = req.user.id === +userId
+  return isAdmin || isOwner
+    ? next()
+    : res.status(401).json({ error: authorizationErr })
 }
 
 /**
- * Expose le middleware qui vérifie que 
+ * Expose le middleware qui vérifie que
  * le userId (req.params.userId)
  * est bien associé à la carte (req.params.cardId)
  */
@@ -46,11 +40,11 @@ exports.isCardAssociated = (req, res, next) => {
   if (req.user.roletype === 'admin') {
     return next()
   }
-  
-  User.isCardOwner({ userId: req.params.userId, cardId: req.params.cardId })
+
+  const userId = req.params.userId || req.body.userId
+  const cardId = req.params.cardId || req.body.cardId
+
+  User.isCardOwner({ userId, cardId })
     .then(() => next())
-    .catch(err => {
-      res.status(401).json(err)
-      return next(err.error)
-    })
+    .catch(err => res.status(401).json(err))
 }
