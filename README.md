@@ -66,7 +66,10 @@ Créer un fichier auth/passport.js pour :
 
 * Avec jest et super-test ?
 
-## 10. verifier les inputs client sur les routes avec JOI => TODO
+## 10. valider les inputs client sur les routes => TODO
+
+* avec JOI
+* ou avec express-validator
 
 ## 11. Centraliser et normaliser la gestion d'erreur => TODO
 
