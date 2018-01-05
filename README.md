@@ -50,7 +50,7 @@ Créer un fichier auth/passport.js pour :
 * qui génére et renvoie le token
 * qui renvoie eventuellement les infos du user.
 
-## 8. Créer les middleware d'autorsation pour sécuriser les routes d'api
+## 8. Créer les middleware d'autorisation pour sécuriser les routes d'api
 
 
 

@@ -9,9 +9,7 @@ const authorizationErr = 'You are not authorized to view this content'
  * @param {array} roles
  */
 exports.roleAuthorization = (...roles) => (req, res, next) => {
-  console.log('roles : ', roles);
-  console.log('req.user : ', req.user);
-  
+
   // Grâce au middleware authJwt, on récupere le user
   if (roles.indexOf(req.user.roletype) > -1) {
     return next()
@@ -31,7 +29,6 @@ exports.ownAccount = (req, res, next) => {
   const isAdmin = req.user.roletype === 'admin'
   const isOwner = req.user.id === +req.params.userId
   if (isAdmin || isOwner) {
-    
     return next()
   } else {
     res.status(401).json({ error: authorizationErr })
@@ -46,9 +43,6 @@ exports.ownAccount = (req, res, next) => {
  */
 exports.isCardAssociated = (req, res, next) => {
   // Grâce au middleware authJwt, on récupere le user
-
-  console.log('req.user.roletype : ', req.user.roletype);
-  
   if (req.user.roletype === 'admin') {
     return next()
   }

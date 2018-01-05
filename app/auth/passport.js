@@ -36,8 +36,6 @@ const checkCredentials = (email, password, done) =>
  * @param {*} done
  */
 const checkToken = (payload, done) => {
-  console.log('payload.id : ', payload.id);
-  
   return User.getById(payload.id)
     .then(user => done(null, user))
     .catch(err => done(err))
