@@ -8,6 +8,7 @@ const {
 const listCtrl = require('./controllers/list')
 const cardCtrl = require('./controllers/card')
 const userCtrl = require('./controllers/user')
+const authCtrl = require('./controllers/auth')
 
 const isAdmin = roleAuthorization('admin')
 
@@ -26,12 +27,15 @@ exports.cardRouter = express
   .put('/:id', authJwt, isAdmin, cardCtrl.put)
   .delete('/:id', authJwt, isAdmin, cardCtrl.delete)
 
+exports.authRouter = express
+  .Router()
+  .post('/register', authCtrl.register)
+  .post('/login', authCredentials, authCtrl.login)
+
 exports.userRouter = express
   .Router()
   .get('/', authJwt, userCtrl.getAll)
   .get('/:userId', authJwt, userCtrl.getById)
-  .post('/', authJwt, userCtrl.register)
-  .post('/login', authCredentials, userCtrl.login)
   .put(
     '/:userId/card/:cardId/list',
     authJwt,

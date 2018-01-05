@@ -2,8 +2,7 @@ const express = require('express')
 const model = require('../models/user')
 const card = require('../models/card')
 
-const { authCredentials, authJwt } = require('../auth/passport')
-const { generateToken } = require('../auth/token')
+const { authJwt } = require('../auth/passport')
 const {
   roleAuthorization,
   ownAccount,
@@ -24,38 +23,6 @@ ctrl.getById = (req, res) => {
     .getById(req.params.userId)
     .then(u => res.json(u))
     .catch(err => res.json(err))
-}
-
-ctrl.register = (req, res) => {
-  const { lastname, firstname, email, pwd } = req.body
-  if (!email) {
-    return res.status(422).send({ error: 'You must enter an email address' })
-  }
-
-  if (!pwd) {
-    return res.status(422).send({ error: 'You must enter a password' })
-  }
-
-  return model
-    .notExists(email)
-    .then(exist => model.createUser({ lastname, firstname, email, pwd }))
-    .then(result => model.getByEmail(email))
-    .then(result => res.send(result))
-    .catch(error => res.status(422).send({ error }))
-}
-
-ctrl.login = (req, res) => {
-  // Grâce au middleware authCredentials, on récupere le user
-  const userInfo = {
-    id: req.user.id,
-    email: req.user.email,
-    role: req.user.roletype
-  }
-
-  res.status(200).json({
-    token: 'JWT ' + generateToken(userInfo),
-    user: userInfo
-  })
 }
 
 /**

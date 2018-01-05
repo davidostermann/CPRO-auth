@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const logger = require('morgan')
 const app = express()
-const { listRouter, cardRouter, userRouter } = require('./routes')
+const { listRouter, cardRouter, userRouter, authRouter } = require('./routes')
 
 app.use(logger('dev'))
 app.use(cors())
@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 app.use('/lists', listRouter)
 app.use('/cards', cardRouter)
 app.use('/users', userRouter)
+app.use('/auth', authRouter)
 
 app.all('/*', (req, res, ) => {
   res.status(404).send('je suis la 404')
