@@ -12,8 +12,6 @@ const {
 
 const ctrl = {}
 
-ctrl.getAll = (req, res) => {}
-
 ctrl.getAll = (req, res) => {
   model
     .getUsers()
