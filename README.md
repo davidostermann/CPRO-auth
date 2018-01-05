@@ -11,13 +11,13 @@ npm i -S bcrypt-nodejs jsonwebtoken morgan passport passport-jwt passport-local 
 
 cf. [auth](./app/auth/pwd.js)
 
-### Générer un pwd génréric
+### Générer un pwd générique pour populer la BDD
 
 cf. [auth helper createGenericPassoword](./app/auth/helper.js) 
 
-## 3. BDD
+## 3. modifier la table user de la BDD
 
-Ajouter les champs email, pwd, role à la base
+Ajouter les champs email, pwd, role à la table `user`
 cf. [setup.sql l.38 à 60](./setup.sql)
 
 Un pwd générique pourra être généré avec le [helper](./app/auth/helper.js)
@@ -39,8 +39,21 @@ Un pwd générique pourra être généré avec le [helper](./app/auth/helper.js)
 ## 6. Parametrer Passport
 
 Créer un fichier auth/passport.js pour :
+
 * initialiser une strategie pour le login : local
 * initialiser une strategie pour les routes d'api et les routes front : jwt
 * exposer les middlewares correspondants.
 
+## 7. créer une route pour le login
 
+* qui utilise le middleware de passport-local
+* qui génére et renvoie le token
+* qui renvoie eventuellement les infos du user.
+
+## 8. Créer les middleware d'autorsation pour sécuriser les routes d'api
+
+
+
+## 11. Pour aller plus loin dans les autorisations
+
+* https://github.com/OptimalBits/node_acl

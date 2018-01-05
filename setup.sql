@@ -51,13 +51,13 @@ INSERT INTO users
   (firstname, lastname, email, pwd, roletype)
 VALUES
   ('David', 'Ostermann', 'do@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'admin'),
-  ('Faustino', 'Kialungila', 'do@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
+  ('Faustino', 'Kialungila', 'fk@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
   ('Paljor', 'Tsang', 'pt@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
   ('Gaelle', 'Meric', 'gm@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
   ('Joffrey', 'Gitau', 'jg@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
   ('Mehdi', 'Druon', 'md@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
   ('Martin', 'Eon', 'me@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
-  ('Julien', 'Grach', 'do@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user');
+  ('Julien', 'Grach', 'jgr@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user');
 
 CREATE TABLE users_cards_lists
 (
