@@ -1,4 +1,4 @@
-const User = require('../models/user')
+const userCard = require('../models/user.card')
 
 const authorizationErr = 'You are not authorized to view this content'
 
@@ -44,7 +44,8 @@ exports.isCardAssociated = (req, res, next) => {
   const userId = req.params.userId || req.body.userId
   const cardId = req.params.cardId || req.body.cardId
 
-  User.isCardOwner({ userId, cardId })
+  userCard
+    .exist({ userId, cardId })
     .then(() => next())
     .catch(err => res.status(401).json(err))
 }
