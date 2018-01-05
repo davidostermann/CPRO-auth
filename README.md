@@ -1,5 +1,5 @@
 # CPRO-auth
-authentification / role avec passport &amp; jwt
+authentification / role avec passport, jwt et bcrypt
 
 ## 1. install
 
@@ -24,8 +24,8 @@ Un pwd générique pourra être généré avec le [helper](./app/auth/helper.js)
 
 ## 5. ajouter 3 methodes au model user :
 
-* `notExists(email)` pour la creation de l'utilisateur
-* `getUserByEmail` pour le login
+* `notExists(email)` pour vérifier qu'un utilisateur avec le même mail n'existe pas => utilisé à la creation de l'utilisateur (register)
+* `getUserByEmail` pour récupérer le hash du password correspondant à l'email afin de le comparer avec le password envoyé => utilisé pour le login
 * `getUserById` pour la vérification du token
 
 ## 4. modifier la creation de user
@@ -50,10 +50,30 @@ Créer un fichier auth/passport.js pour :
 * qui génére et renvoie le token
 * qui renvoie eventuellement les infos du user.
 
-## 8. Créer les middleware d'autorisation pour sécuriser les routes d'api
+## 8. Créer les middlewares d'autorisation pour sécuriser les routes d'api
 
+* Un pour limiter l'acces à l'admin
+* Un pour limiter l'acces à l'owner du compte
+* Un pour empecher un user de bouger une carte à laquelle il n'est pas associé
 
+## 9. Refacto
 
-## 11. Pour aller plus loin dans les autorisations
+* Créer un routes.js qui centralise les path, middleware et controller associés
+* Extraire login et register du user pour faire un controller spécialisé dans l'authentification
+* Créer un model et controller pour les action impliquant user et card afin d'alléger les model et controller de user
+
+## 10. testes d'intégration => TODO
+
+* Avec jest et super-test ?
+
+## 10. verifier les inputs client sur les routes avec JOI => TODO
+
+## 11. Centraliser et normaliser la gestion d'erreur => TODO
+
+## 12. Securiser le server avec Helmet => TODO
+
+Attention en particulier aux injection SQL. Mais il y plein d'autres attaques possibles.
+
+## 13. Pour aller plus loin dans les autorisations
 
 * https://github.com/OptimalBits/node_acl

@@ -17,10 +17,10 @@ const jwtOptions = {
 
 /**
  * Récupere le pwd du user en BDD pour le comparer au pwd envoyé.
- * Si la comparaison est positive, renvoie le user.
- * @param {*} email
- * @param {*} password
- * @param {*} done
+ * Si la comparaison est positive, renvoie le user dans le callback `done`
+ * @param {*} email - correspond à req.params.email (cf. localOptions)
+ * @param {*} password - correspond à req.params.password (cf. localOptions)
+ * @param {*} done - callback de passport
  */
 const checkCredentials = (email, password, done) =>
   User.getByEmail(email)
@@ -31,9 +31,9 @@ const checkCredentials = (email, password, done) =>
 
 /**
  * Vérifie que l'id du token correspond bien à un utilsateur en BDD
- * si le user existe, renvoie le user
- * @param {*} payload
- * @param {*} done
+ * si le user existe, renvoie le user dans le callback `done`
+ * @param {*} payload - contenu du token extrait du header (jwtFromRequest cf. jwtOptions) et decodé grâce à la secretKey (cf. jwtOptions)
+ * @param {*} done - callback de passport
  */
 const checkToken = (payload, done) => {
   return User.getById(payload.id)
