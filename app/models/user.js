@@ -45,12 +45,17 @@ module.exports = {
   deleteUser(id) {
     return db.unwrapQuery(`DELETE FROM users WHERE id=${id}`)
   },
+  setRole({ userId, role }) {
+    return db.unwrapQuery(`
+    UPDATE users 
+    SET roletype='${role}' 
+    WHERE id=${userId}`)
+  },
+
   addCard({ userId, cardId }) {
     return db.unwrapQuery(`
-    INSERT INTO users_cards_lists SET 
-    user_id=${userId}, 
-    card_id=${cardId}, 
-    list_id=${defaultListId}`)
+    INSERT INTO users_cards_lists(user_id, card_id, list_id) 
+    VALUES (${userId}, ${cardId}, ${defaultListId})`)
   },
   setListCard({ userId, cardId, listId }) {
     return db.unwrapQuery(`
@@ -58,12 +63,6 @@ module.exports = {
     SET list_id=${listId}
     WHERE user_id=${userId} 
     AND card_id=${cardId}`)
-  },
-  setRole({ userId, role }) {
-    return db.unwrapQuery(`
-    UPDATE users 
-    SET roletype='${role}' 
-    WHERE id=${userId}`)
   },
   isCardOwner({ userId, cardId }) {
     return db

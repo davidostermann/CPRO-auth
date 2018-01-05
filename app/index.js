@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const logger = require('morgan')
 const app = express()
-const { listRouter, cardRouter, userRouter, authRouter } = require('./routes')
+const { listRouter, cardRouter, userRouter, authRouter, userCardRouter } = require('./routes')
 
 app.use(logger('dev'))
 app.use(cors())
@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 
 app.use('/lists', listRouter)
 app.use('/cards', cardRouter)
+app.use('/user/cards', userCardRouter)
 app.use('/users', userRouter)
 app.use('/auth', authRouter)
 

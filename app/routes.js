@@ -9,6 +9,7 @@ const listCtrl = require('./controllers/list')
 const cardCtrl = require('./controllers/card')
 const userCtrl = require('./controllers/user')
 const authCtrl = require('./controllers/auth')
+const userCardCtrl = require('./controllers/user.card')
 
 const isAdmin = roleAuthorization('admin')
 
@@ -36,16 +37,18 @@ exports.userRouter = express
   .Router()
   .get('/', authJwt, userCtrl.getAll)
   .get('/:userId', authJwt, userCtrl.getById)
-  .put(
-    '/:userId/card/:cardId/list',
-    authJwt,
-    ownAccount,
-    isCardAssociated,
-    userCtrl.moveCard
-  )
-  .post('/:userId/card', authJwt, ownAccount, userCtrl.addCard)
   .put('/:userId', authJwt, ownAccount, userCtrl.update)
   .delete('/:userId', authJwt, ownAccount, userCtrl.delete)
   .put('/:userId/role/:role', authJwt, isAdmin, userCtrl.setRole)
-  .get('/:userId/cards', authJwt, ownAccount, userCtrl.getCards)
 
+exports.userCardRouter = express
+  .Router()
+  .post('/:userId', authJwt, ownAccount, userCardCtrl.add)
+  .put(
+    '/:userId',
+    authJwt,
+    ownAccount,
+    isCardAssociated,
+    userCardCtrl.move
+  )
+  .get('/:userId', authJwt, ownAccount, userCardCtrl.get)
