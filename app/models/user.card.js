@@ -2,14 +2,19 @@ const db = require('./db')
 const defaultListId = 1
 
 module.exports = {
- create({ userId, cardId }) {
-    return db.unwrapQuery(`
-    INSERT INTO users_cards_lists(user_id, card_id, list_id) 
-    VALUES (${userId}, ${cardId}, ${defaultListId})`)
-    .catch(err => 
-      Promise.reject({ error : (err.code === '23505') 
-        ? "User is already associated to this card" 
-        : "Database error" }))
+  create({ userId, cardId }) {
+    return db
+      .unwrapQuery(
+        `INSERT INTO users_cards_lists(user_id, card_id, list_id) 
+        VALUES (${userId}, ${cardId}, ${defaultListId})`)
+      .catch(err =>
+        Promise.reject({
+          error:
+            err.code === '23505'
+              ? 'User is already associated to this card'
+              : 'Database error'
+        })
+      )
   },
   setList({ userId, cardId, listId }) {
     return db.unwrapQuery(`

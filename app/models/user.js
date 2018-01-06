@@ -13,19 +13,23 @@ module.exports = {
         '${email}', '${hash}', 'user')`)
     )
   },
-  updateUser({ id, firstname, lastname }) {
+  updateUser({ userId, firstname, lastname }) {
+    console.log('userId : ', userId);
+    
     return db.unwrapQuery(`
     UPDATE users 
-    SET firstname='${firstname}', lastname='${lastname}
-    WHERE id=${id}`)
+    SET firstname='${firstname}', lastname='${lastname}'
+    WHERE id=${userId}`)
   },
-  deleteUser(id) {
-    return db.unwrapQuery(`DELETE FROM users WHERE id=${id}`)
+  deleteUser(userId) {
+    return db.unwrapQuery(`DELETE FROM users WHERE id=${userId}`)
   },
-  getById(id) {
-    return db.unwrapQuery(`SELECT * FROM users WHERE id=${id}`).then(users => {
-      return users.length ? users[0] : Promise.reject('No user for its ID')
-    })
+  getById(userId) {
+    return db
+      .unwrapQuery(`SELECT * FROM users WHERE id=${userId}`)
+      .then(users => {
+        return users.length ? users[0] : Promise.reject('No user for its ID')
+      })
   },
   getByEmail(email) {
     return db

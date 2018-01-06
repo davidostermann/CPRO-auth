@@ -19,31 +19,28 @@ ctrl.getById = (req, res) => {
 }
 
 ctrl.update = (req, res) => {
-  const { id } = req.params
+  const { userId } = req.params
   const { firstname, lastname } = req.body
   model
-    .updateUser({ id, firstname, lastname })
-    .then(result => model.getById(id))
+    .updateUser({ userId, firstname, lastname })
+    .then(result => model.getById(userId))
     .then(result => res.json(result))
     .catch(err => res.json(err))
 }
 
 ctrl.delete = (req, res) => {
-  const { id } = req.params
+  const { userId } = req.params
   model
-    .deleteUser(id)
+    .deleteUser(userId)
     .then(result => res.json(result))
     .catch(err => res.json(err))
 }
 
 ctrl.setRole = (req, res) => {
-  console.log('id : ', req.params.id)
-  console.log('role : ', req.params.role)
-
-  const { id, role } = req.params
+  const { userId, role } = req.params
   model
-    .setRole({ userId: id, role })
-    .then(result => model.getById(id))
+    .setRole({ userId, role })
+    .then(result => model.getById(userId))
     .then(result => res.json(result))
     .catch(err => res.json(err))
 }

@@ -65,6 +65,12 @@ Créer un fichier auth/passport.js pour :
 ## 10. testes d'intégration => TODO
 
 * Avec jest et super-test ?
+* http://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/
+* https://www.valentinog.com/blog/testing-api-koa-jest/
+* https://medium.com/@linuk/unit-testign-rest-api-file-upload-with-jest-supertest-and-mz-in-node-ecbab9814aef
+* https://github.com/juffalow/express-jwt-example Mocha / chai mais bon exemple
+* https://github.com/Shyam-Chen/Backend-Starter-Kit intéressant
+* https://www.snip2code.com/Snippet/248401/Supertest-authenticate-with-bearer-token utilise le login pour recuperezr le token
 
 ## 10. valider les inputs client sur les routes => TODO
 
@@ -76,6 +82,10 @@ Créer un fichier auth/passport.js pour :
 ## 12. Securiser le server avec Helmet => TODO
 
 Attention en particulier aux injection SQL. Mais il y plein d'autres attaques possibles.
+
+# 12. Mettre un trigger postgres sur :
+
+* le onDelete d'une list pour mettre toutes les user.cards de cette liste sur la liste par défaut.
 
 ## 13. Pour aller plus loin dans les autorisations
 
