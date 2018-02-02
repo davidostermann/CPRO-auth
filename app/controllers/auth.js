@@ -27,7 +27,7 @@ ctrl.login = (req, res) => {
   const userInfo = {
     id: req.user.id,
     email: req.user.email,
-    role: req.user.roletype
+    role: req.user.role
   }
 
   res.status(200).json({

@@ -8,7 +8,7 @@ module.exports = {
   createUser({ lastname, firstname, email, pwd }) {
     return encodePassword(pwd).then(hash =>
       db.unwrapQuery(`
-        INSERT INTO users(firstname, lastname, email, pwd, roletype)
+        INSERT INTO users(firstname, lastname, email, pwd, role)
         VALUES ('${firstname}', '${lastname}', 
         '${email}', '${hash}', 'user')`)
     )
@@ -51,7 +51,7 @@ module.exports = {
   setRole({ userId, role }) {
     return db.unwrapQuery(`
     UPDATE users 
-    SET roletype='${role}' 
+    SET role='${role}' 
     WHERE id=${userId}`)
   }
 }

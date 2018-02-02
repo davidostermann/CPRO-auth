@@ -1,6 +1,9 @@
 # CPRO-auth
 authentification / role avec passport, jwt et bcrypt
 
+* https://node-postgres.com/api/client
+* https://facebook.github.io/jest/docs/en/tutorial-async.html
+
 ## 1. install
 
 npm i -S bcrypt-nodejs jsonwebtoken morgan passport passport-jwt passport-local dotenv
@@ -30,7 +33,7 @@ Un pwd générique pourra être généré avec le [helper](./app/auth/helper.js)
 
 ## 4. modifier la creation de user
 
-* Ajouter les nouveaux champs (email , pwd, roletype)
+* Ajouter les nouveaux champs (email , pwd, role)
 * Verifier la présence de l'email
 * Verifier la présence du password
 * Verifier que l'utilisateur n'exite pas dejà : `notExists(email)`

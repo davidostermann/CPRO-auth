@@ -41,7 +41,7 @@ describe('/users/:id', () => {
       id: 1,
       lastname: 'Ostermann',
       pwd: '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW',
-      roletype: 'admin'
+      role: 'admin'
     })
   })
 

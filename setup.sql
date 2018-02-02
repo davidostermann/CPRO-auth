@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS users_cards_lists;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS cards;
 DROP TABLE IF EXISTS lists;
-DROP TYPE IF EXISTS roletype;
+DROP TYPE IF EXISTS role;
 
 CREATE TABLE lists
 (
@@ -35,7 +35,7 @@ VALUES
   ('Créer des routes d''API'),
   ('Créer la web pour interroger l''API');
 
-CREATE TYPE roletype AS ENUM('user', 'admin');
+CREATE TYPE role AS ENUM('user', 'admin');
 
 CREATE TABLE users
 (
@@ -44,11 +44,11 @@ CREATE TABLE users
   firstname varchar(255),
   email varchar(255),
   pwd varchar(255),
-  roletype roletype
+  role role
 );
 
 INSERT INTO users
-  (firstname, lastname, email, pwd, roletype)
+  (firstname, lastname, email, pwd, role)
 VALUES
   ('David', 'Ostermann', 'do@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'admin'),
   ('Faustino', 'Kialungila', 'fk@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),
