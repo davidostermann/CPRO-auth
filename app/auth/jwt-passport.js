@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const { Strategy, JwtStrategy } = require("passport-jwt");
+const { Strategy, ExtractJwt } = require("passport-jwt");
 const user = require("../models/user");
 
 /**
@@ -29,7 +29,7 @@ const checkToken = (payload, done) => {
 }
 
 // config
-passport.use(new JwtStrategy(jwtOptions, checkToken));
+passport.use(new Strategy(jwtOptions, checkToken))
 
 // middleware
 exports.authJwt = passport.authenticate("jwt", { session: false });

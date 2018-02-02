@@ -1,5 +1,18 @@
 const express = require('express')
-const { authJwt, authCredentials } = require('./auth/passport')
+
+/** Way 1 */
+//const { authJwt, authCredentials } = require('./auth/passport')
+
+/** Way 2 */
+// const { authCredentials } = require('./auth/login-passport')
+// const { authJwt } = require('./auth/jwt-passport')
+
+/** Way 3 */
+const { checkCredentialsMiddleware } = require('./auth/login')
+const { checkTokenMiddleware } = require('./auth/jwt')
+const authCredentials = checkCredentialsMiddleware
+const authJwt = checkTokenMiddleware
+
 const {
   roleAuthorization,
   ownAccount,

@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
 const user = require("../models/user");
-const secret = process.env.JWT_SECRET;
 const tokenErr = "Vous n'avez pas les droits pour accéder à ce service";
-const JWT_SECRET = 'coucou'
+
 //Doc. https://github.com/auth0/node-jsonwebtoken
 
 /**
@@ -44,26 +43,28 @@ exports.checkTokenMiddleware = (req, res, next) => {
     && extractBearerToken(req.headers.authorization);
 
   if(!token) {
-    res.status(403).json({error:tokenErr})
+    return res.status(401).json({error:tokenErr})
   }
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+
+
     if (err) {
-      res.status(403).json({ error: tokenErr });
+      return res.status(401).json({ error: tokenErr })
     }
 
     // Vérifie que l'id du token correspond bien à un utilsateur en BDD
-    user
+    return user
       .getById(decoded.id)
       .then(user => {
         if (!user) {
-          res.status(403).json({ error: tokenErr });
+          return res.status(401).json({ error: tokenErr })
         }
 
-        req.user = user;
-        next();
+        req.user = user
+        return next()
       })
-      .catch(err => res.status(403).json({ error: err }));
-  });
+      .catch(err => res.status(401).json({ error: err }))
+  })
 
 }
