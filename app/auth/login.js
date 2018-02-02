@@ -18,14 +18,15 @@ const { compare } = require("./pwd");
  */
 const checkCredentials = (email, password) => {
   return user
-    .getUserByEmail(email)
-    .then(user => user || Promise.reject({ error: "bad email" }))
+    .getByEmail(email)
+    .then(user => user || Promise.reject({ error: 'bad email' }))
     .then(user =>
       compare(password, user.password).then(
-        isMatch => (isMatch ? user : Promise.reject({ error: "bad password" }))
+        isMatch =>
+          isMatch ? user : Promise.reject({ error: 'bad password' })
       )
     )
-    .catch(err => Promise.reject(err));
+    .catch(err => Promise.reject(err))
 };
 // pour les tests
 exports.checkCredentials = checkCredentials;

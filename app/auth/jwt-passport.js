@@ -23,7 +23,7 @@ const jwtOptions = {
  * @param {*} done - callback de passport
  */
 const checkToken = (payload, done) => {
-  return user.getUserById(payload.id)
+  return user.getById(payload.id)
     .then(user => done(null, user))
     .catch(err => done(err))
 }

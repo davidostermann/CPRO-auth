@@ -25,7 +25,7 @@ const jwtOptions = {
 const checkCredentials = (email, password, done) =>
   User.getByEmail(email)
     .then(user =>
-      comparePassword(password, user.pwd).then(isMatch => done(null, user))
+      comparePassword(password, user.password).then(isMatch => done(null, user))
     )
     .catch(err => done(null, false, err))
 

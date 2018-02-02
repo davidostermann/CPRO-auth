@@ -20,7 +20,7 @@ cf. [auth helper createGenericPassoword](./app/auth/helper.js)
 
 ## 3. modifier la table user de la BDD
 
-Ajouter les champs email, pwd, role à la table `user`
+Ajouter les champs email, password, role à la table `user`
 cf. [setup.sql l.38 à 60](./setup.sql)
 
 Un pwd générique pourra être généré avec le [helper](./app/auth/helper.js)
@@ -33,7 +33,7 @@ Un pwd générique pourra être généré avec le [helper](./app/auth/helper.js)
 
 ## 4. modifier la creation de user
 
-* Ajouter les nouveaux champs (email , pwd, role)
+* Ajouter les nouveaux champs (email , password, role)
 * Verifier la présence de l'email
 * Verifier la présence du password
 * Verifier que l'utilisateur n'exite pas dejà : `notExists(email)`

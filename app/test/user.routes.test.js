@@ -40,7 +40,7 @@ describe('/users/:id', () => {
       firstname: 'David',
       id: 1,
       lastname: 'Ostermann',
-      pwd: '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW',
+      password: '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW',
       role: 'admin'
     })
   })
@@ -53,3 +53,5 @@ describe('/users/:id', () => {
     expect(response.body).toHaveProperty('firstname', 'Davidoo')
   })
 })
+
+afterAll(async () => await require('../models/db').end())

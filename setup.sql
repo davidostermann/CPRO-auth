@@ -43,12 +43,12 @@ CREATE TABLE users
   lastname varchar(255),
   firstname varchar(255),
   email varchar(255),
-  pwd varchar(255),
+  password varchar(255),
   role role
 );
 
 INSERT INTO users
-  (firstname, lastname, email, pwd, role)
+  (firstname, lastname, email, password, role)
 VALUES
   ('David', 'Ostermann', 'do@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'admin'),
   ('Faustino', 'Kialungila', 'fk@do.do', '$2a$05$I240oRkqHe1eiiuTDHP37.MzWTV4vef6Vb1RRXe9HszFbqVzXe9IW', 'user'),

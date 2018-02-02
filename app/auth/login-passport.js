@@ -11,7 +11,7 @@ const LocalStrategy = require("passport-local").Strategy;
  */
 const checkCredentials = (email, passwordEnClair, done) => {
   return user
-    .getUserByEmail(email)
+    .getByEmail(email)
     .then(
       user =>
         user

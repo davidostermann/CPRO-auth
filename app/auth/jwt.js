@@ -54,7 +54,7 @@ exports.checkTokenMiddleware = (req, res, next) => {
 
     // Vérifie que l'id du token correspond bien à un utilsateur en BDD
     user
-      .getUserById(decoded.id)
+      .getById(decoded.id)
       .then(user => {
         if (!user) {
           res.status(403).json({ error: tokenErr });

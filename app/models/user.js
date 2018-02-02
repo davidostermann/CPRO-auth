@@ -1,17 +1,15 @@
 const db = require('./db')
-const { encodePassword } = require('../auth/pwd')
+const { encode } = require('../auth/pwd')
 
 module.exports = {
   getUsers() {
     return db.unwrapQuery('SELECT * FROM users ORDER BY id')
   },
   createUser({ lastname, firstname, email, pwd }) {
-    return encodePassword(pwd).then(hash =>
-      db.unwrapQuery(`
-        INSERT INTO users(firstname, lastname, email, pwd, role)
+    return encode(pwd).then(hash => db.query(`
+        INSERT INTO users(firstname, lastname, email, password, role)
         VALUES ('${firstname}', '${lastname}', 
-        '${email}', '${hash}', 'user')`)
-    )
+        '${email}', '${hash}', 'user')`))
   },
   updateUser({ userId, firstname, lastname }) {
     console.log('userId : ', userId);
@@ -27,18 +25,14 @@ module.exports = {
   getById(userId) {
     return db
       .unwrapQuery(`SELECT * FROM users WHERE id=${userId}`)
-      .then(users => {
-        return users.length ? users[0] : Promise.reject('No user for its ID')
-      })
+      .then(data => data[0] || false)
+      .catch(err => Promise.reject(err));
   },
   getByEmail(email) {
     return db
       .unwrapQuery(`SELECT * FROM users WHERE email='${email}'`)
-      .then(users => {
-        return users.length
-          ? users[0]
-          : Promise.reject({ error: 'No user for its email' })
-      })
+      .then(data => data[0] || false)
+      .catch(err => Promise.reject(err))
   },
   notExists(email) {
     return db

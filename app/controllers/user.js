@@ -11,6 +11,13 @@ ctrl.getAll = (req, res) => {
     .catch(err => res.json(err))
 }
 
+ctrl.getByEmail = (req, res) => {
+  model
+    .getByEmail(req.params.email)
+    .then(u => res.json(u))
+    .catch(err => res.json(err))
+}
+
 ctrl.getById = (req, res) => {
   model
     .getById(req.params.userId)

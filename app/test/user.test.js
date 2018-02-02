@@ -16,32 +16,34 @@ test("getUsers return an array", () => {
     .then(results => expect(Array.isArray(results)).toBe(true));
 });
 
-test('noExists return true for coucou@coucou.fr', () => {
-  return user.noExists('coucou@coucou.fr').then(
-    bool => expect(bool).toBe(true)
-  );
+test('notExists return true for coucou@coucou.fr', () => {
+  return user
+    .notExists('coucou@coucou.fr')
+    .then(bool => expect(bool).toBe(true))
 })
 
-test('getUserByEmail return a user object', () => {
-  return user.getUserByEmail('do@do.do')
+test('getByEmail return a user object', () => {
+  return user.getByEmail('do@do.do')
   .then( data => expect(data.firstname).toBeDefined())
 });
 
-test("getUserByEmail return an error for fake email", () => {
-  return user.getUserByEmail("fake@do.do").then( data => expect(data).toBe(false))
+test("getByEmail return an error for fake email", () => {
+  return user.getByEmail("fake@do.do").then( data => expect(data).toBe(false))
 });
 
-test("getUserById return a user object", () => {
-  return user.getUserById(1).then(data => {
+test("getById return a user object", () => {
+  return user.getById(1).then(data => {
     return expect(data.firstname).toBeDefined();
   });
 });
 
-test("getUserById return an error for fake ID", () => {
-  return user.getUserById(999).then( data => expect(data).toBe(false))
+test("getById return an error for fake ID", () => {
+  return user.getById(999).then( data => expect(data).toBe(false))
 });
 
 test('createUser insert un user', () => {
   return user.createUser({firstname: 'Alexandra', lastname: 'Leveille', email: 'al@do.do', password: 'coucou'})
   .then( data => expect(data.rowCount).toBe(1))
 })
+
+afterAll(async () => await require('../models/db').end())
