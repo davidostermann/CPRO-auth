@@ -4,7 +4,7 @@ module.exports = {
 
   getFullLists() {
     return db.unwrapQuery(`
-    SELECT lists.id, JSON_AGG(
+    SELECT lists.id, lists.name, JSON_AGG(
       JSON_BUILD_OBJECT('name',
         r.card_name,
         'users', r.user_name
