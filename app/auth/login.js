@@ -20,8 +20,12 @@ const checkCredentials = (email, password) => {
   return user
     .getByEmail(email)
     .then(user => user || Promise.reject({ error: 'bad email' }))
+    .then(user => { 
+      console.log('user : ', user);
+      return user
+    })
     .then(user =>
-      compare(password, user.password).then(
+      compare(password, user.pwd).then(
         isMatch =>
           isMatch ? user : Promise.reject({ error: 'bad password' })
       )
@@ -38,7 +42,7 @@ exports.checkCredentials = checkCredentials;
  * @param {*} next 
  */
 exports.checkCredentialsMiddleware = (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body; 
   checkCredentials(email, password)
     .then(user => {
       req.user = user;

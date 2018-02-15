@@ -1,22 +1,10 @@
 version: '3.1'
 
 services:
-    web :
-        build: ./app
-        command: node index.js
-        volumes:
-            - ./app:/usr/app
-            - /usr/app/node_modules
-        ports:
-            - "3001:3000"
-        depends_on: 
-            - db
-        environment:
-            DATABASE_URL: postgres://dost:changeme@db:5432/trellodb
     db:
         image: postgres:10
         volumes:
-            - ./setup_ex2.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./setup.sql
         restart: always
         ports:
             - 5432:5432

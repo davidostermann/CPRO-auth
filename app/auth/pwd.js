@@ -27,6 +27,10 @@ exports.encode = pwd => new Promise( (resolve, reject) => {
  * @returns {boolean}
  */
 exports.compare = (pwd, hash) => new Promise( (resolve, reject) => {
+  console.log('pwd : ', pwd);
+  console.log('hash : ', hash);
+  
+  
   bcrypt.compare(pwd, hash, function(error, isMatch) {
     return error ? reject({ error }) : resolve(isMatch);
   })
