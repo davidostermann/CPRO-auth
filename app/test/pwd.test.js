@@ -7,7 +7,6 @@ test('PWD encode', () => {
 
 test("PWD encode empty password generate error", () => {
   return encode()
-  .then( t => console.log('t : ', t))
   .catch(err => { 
     return expect(err).toBeDefined()
   });

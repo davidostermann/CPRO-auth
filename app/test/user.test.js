@@ -42,7 +42,7 @@ test("getById return an error for fake ID", () => {
 });
 
 test('createUser insert un user', () => {
-  return user.createUser({firstname: 'Alexandra', lastname: 'Leveille', email: 'al@do.do', password: 'coucou'})
+  return user.createUser({firstname: 'Alexandra', lastname: 'Leveille', email: 'al@do.do', pwd: 'coucou'})
   .then( data => expect(data.rowCount).toBe(1))
 })
 

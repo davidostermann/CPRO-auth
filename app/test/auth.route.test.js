@@ -8,10 +8,12 @@ beforeAll(async () => {
 })
 
 describe('authorizations', () => {
-  it('It responds 401', async () => {
+  it('It responds 200', async () => {
     const response = await request(app)
     .post('/auth/login')
     .send({ email: 'do@do.do', password: 'bacon' })
     expect(response.statusCode).toBe(200)
   })
 })
+
+afterAll(async () => await require('../models/db').end())

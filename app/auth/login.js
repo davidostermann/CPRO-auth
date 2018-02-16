@@ -20,12 +20,7 @@ const checkCredentials = (email, password) => {
   return user
     .getByEmail(email)
     .then(user => user || Promise.reject({ error: 'bad email' }))
-    .then(user => { 
-      console.log('user : ', user);
-      return user
-    })
-    .then(user =>
-      compare(password, user.pwd).then(
+    .then(user => compare(password, user.password).then(
         isMatch =>
           isMatch ? user : Promise.reject({ error: 'bad password' })
       )

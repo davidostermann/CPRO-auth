@@ -12,8 +12,7 @@ module.exports = {
         '${email}', '${hash}', 'user')`))
   },
   updateUser({ userId, firstname, lastname }) {
-    console.log('userId : ', userId);
-    
+
     return db.unwrapQuery(`
     UPDATE users 
     SET firstname='${firstname}', lastname='${lastname}'
