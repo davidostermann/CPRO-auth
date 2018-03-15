@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+    web :
+        build: ./app
+        command: node index.js
+        volumes:
+            - ./app:/usr/app
+            - /usr/app/node_modules
+        ports:
+            - "3001:3000"
+        depends_on: 
+            - db
+        environment:
+            DATABASE_URL: postgres://dost:changeme@db:5432/trellodb
+            PRODUCTION: 1
+    db:
+        build: db
+        image: postgres:10
+        volumes:
+            - ./setup.sql:/setup.sql
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: dost
+            POSTGRES_PASSWORD: changeme
+            POSTGRES_DB: trellodb
+
+    adminer:
+        build: adminer
+        image: adminer
+        ports:
+            - 8080:8080
